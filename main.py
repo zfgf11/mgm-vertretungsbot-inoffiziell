@@ -43,11 +43,11 @@ def load_config():
             print(f"[!] Fehler beim Lesen von {CONFIG_FILE}: {e}")
 
     # Umgebungsvariablen (z. B. aus GitHub Variables oder Workflow Inputs) haben Vorrang
-    env_grade = os.getenv("MGM_GRADE")
+    env_grade = os.getenv("KLASSE") or os.getenv("MGM_GRADE")
     if env_grade:
         config["grade"] = env_grade.strip()
 
-    env_courses = os.getenv("MGM_COURSES")
+    env_courses = os.getenv("KURSE") or os.getenv("MGM_COURSES")
     if env_courses:
         # Kommagetrennte Liste parsen: "2D5, 2ku4, 2b2, 2smw4_Volleyb.1"
         courses_list = [c.strip() for c in env_courses.split(",") if c.strip()]
