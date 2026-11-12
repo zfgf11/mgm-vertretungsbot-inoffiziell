@@ -83,7 +83,8 @@ Klicke direkt neben *Secrets* auf den Reiter **Variables** ➔ Klicke auf **New 
 
 ### 4. Automatischen Ablauf starten
 
-1. Klicke in deinem Repository oben auf den Reiter **Actions**.
+1. Klicke in deinem Repository ganz oben in der **Haupt-Navigationsleiste** auf den Reiter **Actions**  
+   *(⚠️ **Wichtig:** Gemeint ist der Menüpunkt ganz oben auf der GitHub-Seite neben „Code“, „Issues“, „Pull requests“ usw. – **NICHT** der Unterpunkt „Actions“ in der linken Seitenleiste der Settings, in denen du gerade warst!)*
 2. Klicke auf die blaue Schaltfläche **"I understand my workflows, go ahead and enable them"** (falls GitHub danach fragt).
 3. Klicke links auf **Check Vertretungsplan**.
 4. Klicke rechts auf **Run workflow** ➔ grüner Button **Run workflow**, um den ersten Testlauf sofort manuell zu starten.
