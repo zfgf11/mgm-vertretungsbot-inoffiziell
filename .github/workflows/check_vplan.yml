@@ -5,15 +5,6 @@ on:
     # Montag bis Freitag alle 15 Minuten zwischen 06:00 und 17:00 Uhr deutscher Zeit (UTC 05:00 - 16:00)
     - cron: '*/15 5-16 * * 1-5'
   workflow_dispatch:
-    inputs:
-      custom_klasse:
-        description: 'Klasse / Stufe (optional, z. B. 7B oder Q13)'
-        required: false
-        default: ''
-      custom_kurse:
-        description: 'Nur für Q12/Q13: Kurse kommagetrennt (optional, z. B. 2D5, 2ku4, 2b2)'
-        required: false
-        default: ''
 
 concurrency:
   group: check-vplan
@@ -70,8 +61,8 @@ jobs:
           MGM_PASSWORD: ${{ secrets.MGM_PASSWORD || secrets.MGM_PASSWORT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          KLASSE: ${{ github.event.inputs.custom_klasse || vars.KLASSE || vars.MGM_GRADE }}
-          KURSE: ${{ github.event.inputs.custom_kurse || vars.KURSE || vars.MGM_COURSES }}
+          KLASSE: ${{ vars.KLASSE || vars.MGM_GRADE }}
+          KURSE: ${{ vars.KURSE || vars.MGM_COURSES }}
         run: |
           python main.py
 

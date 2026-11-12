@@ -93,22 +93,18 @@ Klicke direkt neben *Secrets* auf den Reiter **Variables** ➔ Klicke auf **New 
 
 ---
 
-## 🛠️ Für Entwickler: Lokales Testen
+## 🛑 Schuljahreswechsel oder Abitur: So passt du es an
 
-```bash
-# 1. Virtuelle Umgebung erstellen und Abhängigkeiten installieren
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-playwright install firefox
+### 1. Klasse & Kurse für das neue Schuljahr ändern
+Gehe einfach auf **Settings ➔ Secrets and variables ➔ Actions ➔ Variables**. Klicke auf das Stift-Symbol ✏️ neben `KLASSE` (oder `KURSE`), trage deine neue Stufe bzw. neuen Fächer ein und klicke auf **Update**. Fertig!
 
-# 2. .env Datei anlegen
-cp .env.example .env
-# Trage deine Zugangsdaten und Telegram-Keys in .env ein
+### 2. In den Sommerferien pausieren
+Unter **Actions ➔ Check Vertretungsplan ➔ `...` (drei Punkte) ➔ Disable workflow**.  
+*(Es laufen keine Checks mehr. Nach den Ferien kannst du ihn dort mit einem Klick wieder aktivieren).*
 
-# 3. Skript ausführen
-python main.py
-```
+### 3. Komplett löschen (z. B. nach dem Abitur)
+Unter **Settings ➔ ganz unten bei „Danger Zone“ ➔ Delete this repository**.  
+*(Optional: In Telegram beim [t.me/BotFather](https://t.me/BotFather) mit `/deletebot` deinen Bot löschen).*
 
 ---
 Der Code ist KI-Generiert
