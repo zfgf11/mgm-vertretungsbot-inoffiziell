@@ -67,7 +67,7 @@ jobs:
       - name: Vertretungsplan abrufen und Benachrichtigung senden
         env:
           MGM_EMAIL: ${{ secrets.MGM_EMAIL }}
-          MGM_PASSWORD: ${{ secrets.MGM_PASSWORD }}
+          MGM_PASSWORD: ${{ secrets.MGM_PASSWORD || secrets.MGM_PASSWORT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           KLASSE: ${{ github.event.inputs.custom_klasse || vars.KLASSE || vars.MGM_GRADE }}

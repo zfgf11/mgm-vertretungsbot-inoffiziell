@@ -20,7 +20,7 @@ from parse_plan import parse_html
 load_dotenv()
 
 MGM_EMAIL = os.getenv("MGM_EMAIL")
-MGM_PASSWORD = os.getenv("MGM_PASSWORD")
+MGM_PASSWORD = os.getenv("MGM_PASSWORD") or os.getenv("MGM_PASSWORT")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
