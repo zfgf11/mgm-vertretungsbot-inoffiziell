@@ -1,0 +1,83 @@
+name: Check Vertretungsplan
+
+on:
+  schedule:
+    # Montag bis Freitag alle 15 Minuten zwischen 06:00 und 17:00 Uhr deutscher Zeit (UTC 05:00 - 16:00)
+    - cron: '*/15 5-16 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      custom_grade:
+        description: 'Jahrgangsstufe (optional, überschreibt config.json)'
+        required: false
+        default: ''
+      custom_courses:
+        description: 'Kurse kommagetrennt (optional, z. B. 2D5, 2ku4, 2b2)'
+        required: false
+        default: ''
+
+concurrency:
+  group: check-vplan
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Python-Abhängigkeiten installieren
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Playwright Firefox Cache
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-firefox-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Playwright Firefox installieren
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: |
+          playwright install firefox --with-deps
+
+      - name: Playwright Systemabhängigkeiten installieren (falls Cache Hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: |
+          playwright install-deps firefox
+
+      - name: Vorherigen Vertretungs-Status wiederherstellen
+        uses: actions/cache/restore@v4
+        with:
+          path: seen_cache.json
+          key: vplan-cache-${{ github.run_id }}
+          restore-keys: |
+            vplan-cache-
+
+      - name: Vertretungsplan abrufen und Benachrichtigung senden
+        env:
+          MGM_EMAIL: ${{ secrets.MGM_EMAIL }}
+          MGM_PASSWORD: ${{ secrets.MGM_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MGM_GRADE: ${{ github.event.inputs.custom_grade || vars.MGM_GRADE }}
+          MGM_COURSES: ${{ github.event.inputs.custom_courses || vars.MGM_COURSES }}
+        run: |
+          python main.py
+
+      - name: Neuen Vertretungs-Status speichern
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: seen_cache.json
+          key: vplan-cache-${{ github.run_id }}

@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+*.html
+*.png
+last_state.json
+seen_cache.json
