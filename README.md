@@ -1,4 +1,4 @@
-# MGM Vertretungsplan Notifier (Michaeli-Gymnasium München)
+# MGM Vertretungsplan Notifier (Michaeli-Gymnasium München) INOFFIZIELL
 
 > ⚠️ **Inoffizielles Schüler-Projekt:** Dies ist kein offizielles Angebot der Schulleitung des Michaeli-Gymnasiums München, sondern ein privates Open-Source-Projekt von und für Schüler.
 
@@ -108,3 +108,6 @@ cp .env.example .env
 # 3. Skript ausführen
 python main.py
 ```
+
+---
+Der Code ist KI-Generiert
